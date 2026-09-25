@@ -63,13 +63,16 @@ export function Modal({
   children,
   onClose,
   wide = false,
+  arrowNavigation = false,
 }: {
   title: string;
   children: React.ReactNode;
   onClose?: () => void;
   wide?: boolean;
+  arrowNavigation?: boolean;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const dialog = ref.current;
     dialog?.showModal();
@@ -80,6 +83,25 @@ export function Modal({
       ref={ref}
       className={`modal ${wide ? "wide" : ""}`}
       aria-label={title}
+      onKeyDown={(event) => {
+        if (!arrowNavigation || !onClose || event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+        if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
+        if (event.target === closeButton.current) {
+          event.preventDefault();
+          if (event.key === "ArrowDown" || event.key === "ArrowLeft") {
+            const firstControl = Array.from(ref.current?.querySelectorAll<HTMLElement>(
+              'input:not(:disabled):not([type="hidden"]), button:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]',
+            ) || []).find((element) => !element.closest(".modal-header") && element.getClientRects().length > 0);
+            firstControl?.focus({ preventScroll: true });
+            firstControl?.scrollIntoView({ block: "nearest" });
+          }
+        } else if (event.key === "ArrowUp") {
+          // The keypad handles its own arrows first. Its input leaves Up for the close button.
+          event.preventDefault();
+          closeButton.current?.focus({ preventScroll: true });
+          closeButton.current?.scrollIntoView({ block: "nearest" });
+        }
+      }}
       onCancel={(e) => {
         e.preventDefault();
         onClose?.();
@@ -88,7 +110,7 @@ export function Modal({
       <div className="modal-header">
         <h2>{title}</h2>
         {onClose && (
-          <button className="icon-button" aria-label="ปิด" onClick={onClose}>
+          <button ref={closeButton} type="button" className="icon-button modal-close" aria-label="ปิด" onClick={onClose}>
             <X />
           </button>
         )}

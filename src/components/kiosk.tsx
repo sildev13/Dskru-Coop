@@ -872,6 +872,7 @@ export default function Kiosk() {
       {checkout && (
         <Modal
           wide={!order}
+          arrowNavigation
           title={
             order?.status === "completed"
               ? "ขอบคุณที่อุดหนุน"

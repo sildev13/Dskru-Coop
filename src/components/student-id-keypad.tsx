@@ -137,7 +137,7 @@ export default function StudentIdKeypad({ value, onChange, onContinue, disabled,
       placeholder="เช่น 00123"
     />
     <p className="student-id-help" id={`${id}-help`}>
-      <Keyboard size={16} aria-hidden="true" /> พิมพ์ด้วย Numpad หรือกด ↓ เพื่อเลือกตัวเลขบนแป้น
+      <Keyboard size={16} aria-hidden="true" /> จากช่องรหัส: ↓ เข้าแป้นตัวเลข · ↑ เลือก × แล้ว Enter เพื่อปิด
     </p>
     <div className="student-number-grid" role="group" aria-label="แป้นตัวเลขรหัสนักเรียน">
       {digits.map((digit, index) => <button key={digit} type="button" disabled={disabled}

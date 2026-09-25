@@ -952,6 +952,13 @@ textarea {
   font-size: 24px;
   font-weight: 600;
 }
+.modal-close:focus-visible {
+  color: #a33712;
+  background: #fff4d2;
+  outline: 3px solid #a33712;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px #ffd33755;
+}
 .modal > p {
   line-height: 1.7;
 }
