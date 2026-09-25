@@ -1,0 +1,35 @@
+{
+  "name": "dskru-cooperative",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "seed:firestore": "node --env-file=.env.local --import tsx scripts/seed-firestore.ts",
+    "migrate:firestore": "node --env-file=.env.local --import tsx scripts/migrate-demo-to-firestore.ts"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "firebase-admin": "latest",
+    "jsbarcode": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/jsbarcode": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "overrides": {
+    "uuid": "11.1.1"
+  }
+}
